@@ -1,2 +1,0 @@
-Hello, World! from writeFileSync method.
-This is an appended text using appendFileSync method.
