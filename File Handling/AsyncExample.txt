@@ -1,0 +1,2 @@
+Hello, World! from writeFile method.
+This is an appended text using appendFile method.
