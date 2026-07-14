@@ -1,0 +1,14 @@
+Rest API - Json
+
+
+GET /users - HTML throw
+GET /api/users - Data throw
+
+GET /users/1 - Data of user 1 
+GET /users/2 - Data of user 2
+
+POST /users - Create New user
+
+PATCH /users/1 - Edit the user with the ID 1
+
+DELETE /users/2 - Detete the user with the id number 2
