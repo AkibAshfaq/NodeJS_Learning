@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const { setuser, getuser, } = require('../services/auth');
+const { v4:uuidv4 } = require('uuid');
 
 async function handleGetloginPage(req, res) {
     return res.render("login");
@@ -9,13 +11,17 @@ async function handleLoginCreds(req, res) {
 
     try{
         const logincreds= await User.findOne({username, password})
-        if(!logincreds) return res.status(404).json({msg:"user not found"})
-        return res.redirect("/user/home");
+        if(!logincreds) return res.status(404).json({msg:"user not found"});
+        const sessionid = uuidv4();
+        // setuser(sessionid, username);
+        const token = setuser(logincreds);
+        res.cookie("Sid", token);
+        console.log(token);
+        return res.redirect("home");
     }catch(err){
-        return res.status(400).json({msg:"Login issue"})
-        return res.render("login");
+        console.error(err);
+        return res.status(400).json({ msg: err?.message || String(err) });
     }
-
 }
 
 async function handleHome(req, res) {
@@ -41,7 +47,7 @@ async function handlesignupCreds(req, res) {
             password: req.body.password,
         }
     )
-        
+
     return res.render("signup", {
         status: "User Created"
     }); 
@@ -56,8 +62,6 @@ async function handleDeleteAcclount(req, res){
         return res.status(400).json({msg:"User deletation failed" + err});
     }
 }
-
-
 
 module.exports = {
     handleGetloginPage,
