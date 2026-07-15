@@ -19,7 +19,6 @@ app.use(express.json())
 app.use(express.urlencoded({extended : false}));
 app.use(cookieParser());
 
-app.use(RuntimeAuthCheck);
 app.use('/url', sessionIdrestriction, urlrouter);
 app.use('/user', CheckAuth, userrouter);
 

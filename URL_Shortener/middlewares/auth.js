@@ -1,13 +1,14 @@
 const { getuser, setuser } = require('../services/auth')
 
-
 function sessionIdrestriction(req, res, next){
     const savedid = req.header['authorization'];
     
-    if(!savedid) return res.redirect('/login')
+    if(!savedid) return res.redirect('login')
     
     const token = savedid.split('Bearer')[1];
     const user =  getuser(token);
+
+    if(!user) return res.redirect('login')
 
     req.user = user;
     next();
