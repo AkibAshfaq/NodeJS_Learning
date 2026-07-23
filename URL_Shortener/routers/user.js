@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { handleGetloginPage, handleGetsignUpPage, handleLoginCreds, handlesignupCreds, handleDeleteAcclount, handleHome, } = require('../controllers/user');
 
-router.get('/home', handleHome)
+router.get('/', handleHome)
 
 router.route("/login")
 .get(handleGetloginPage)

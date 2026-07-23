@@ -16,11 +16,11 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
 app.use(express.json())
-app.use(express.urlencoded({extended : false}));
+app.use(express.urlencoded({extended : true}));
 app.use(cookieParser());
 
 app.use('/url', sessionIdrestriction, urlrouter);
-app.use('/user', CheckAuth, userrouter);
+app.use('/user', userrouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

@@ -1,6 +1,8 @@
 const { nanoid } = require('nanoid');
 const URL = require('../models/url');
 
+
+
 async function handleGenShortURL(req, res) {
     const { url } = req.body;
     const shortId = nanoid(8);
@@ -13,7 +15,9 @@ async function handleGenShortURL(req, res) {
         visithistory: []
     });
 
-    return res.json({ id : shortId });
+    return res.redirect("/home", {
+        shortId:shortId
+    });
 }
 
 async function handleGeturl(req, res){
@@ -49,7 +53,7 @@ async function handleDelete(req, res){
 
 async function handleGetAllurl(req, res) {
     const allurl = await URL.find({});
-    return res.json(allurl);
+    return res.render('home', { allurl});
 }
 
 module.exports = { 

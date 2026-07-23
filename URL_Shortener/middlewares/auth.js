@@ -1,24 +1,25 @@
 const { getuser, setuser } = require('../services/auth')
 
 function sessionIdrestriction(req, res, next){
-    const savedid = req.header['authorization'];
-    
-    if(!savedid) return res.redirect('login')
-    
-    const token = savedid.split('Bearer')[1];
+    const savedid = req.headers["authorization"];
+    const token = savedid.split("Bearer ")[1];
+    console.log(` From auth ${token}`)
     const user =  getuser(token);
-
-    if(!user) return res.redirect('login')
+    
+    if(!savedid) return res.redirect('/user/login')
+    if(!user) return res.json({ msg :`From auth return ${token}`})
 
     req.user = user;
     next();
 }
 
 async function CheckAuth(req, res, next){
-    const Cookie = req.cookies?.Sid;
-
-    if(!Cookie) return res.redirect("login");
-    const user = getuser(Cookie);
+    const savedid = req.headers["authorization"];
+    const token = savedid.split("Bearer ")[1];
+    console.log(` From auth ${token}`)
+    const user =  getuser(token);
+    if(!savedid) return res.redirect('/user/login')
+    if(!user) return res.json({ msg :`From auth return ${token}`})
 
     req.user = user;
     next();

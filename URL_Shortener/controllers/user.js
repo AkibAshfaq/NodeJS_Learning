@@ -15,9 +15,9 @@ async function handleLoginCreds(req, res) {
         const sessionid = uuidv4();
         // setuser(sessionid, username);
         const token = setuser(logincreds);
-        res.cookie("Sid", token);
+        // res.cookie("Sid", token);
         console.log(token);
-        return res.redirect("home");
+        return res.json({ token });
     }catch(err){
         console.error(err);
         return res.status(400).json({ msg: err?.message || String(err) });
